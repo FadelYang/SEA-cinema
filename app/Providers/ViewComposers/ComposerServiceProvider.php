@@ -15,7 +15,7 @@ class ComposerServiceProvider extends ServiceProvider
     public function boot()
     {
         // Using Closure based composers...
-        view()->creator(['home', 'welcome'], function ($view) {
+        view()->creator(['home', 'welcome', 'detail'], function ($view) {
             $movies = app(HomeController::class)->getMovieList();
 
             $view->with('movies', $movies); 
