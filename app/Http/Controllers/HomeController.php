@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Utils\PaginateCollection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-class HomeController extends Controller
+class HomeController extends MovieController
 {
     /**
      * Show the application home page.
@@ -15,7 +14,7 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $movies = $this->getMovieList();
+        $movies = $this->getMovieList(false);
 
         $query = $request->get('query');
 
@@ -24,15 +23,5 @@ class HomeController extends Controller
             'movies' => $movies,
             'showPagination' => is_null(request('all'))
         ]);
-    }
-
-    public function getMovieList()
-    {
-        $movieApiUrl = "https://seleksi-sea-2023.vercel.app/api/movies";
-        $movieApiResponse = Http::get($movieApiUrl);
-
-        $movieApiResponseBody = json_decode($movieApiResponse->getBody());
-
-        return collect($movieApiResponseBody)->paginate(10);
     }
 }
