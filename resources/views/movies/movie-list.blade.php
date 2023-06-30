@@ -15,15 +15,15 @@
                         <p class="movieDescription">{{ $movie->description }}</p>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 col-xl-12 col-12">
+                        <div class="col-12">
                             <p>Release Date: <span
                                     class="badge bg-primary">{{ Carbon\Carbon::createFromFormat('Y-m-d', $movie->release_date)->format('d F Y') }}</span>
                             </p>
                             <p>Age Rating: <span class="badge bg-primary">{{ $movie->age_rating }}</span></p>
                             <p>Ticket Price: <span class="badge bg-primary">{{ $movie->ticket_price }}</span></p>
                         </div>
-                        <div class="col-md-6 col-xl-12 col-12 d-xl-none detailButtonResponsive">
-                            <a class="btn btn-light mb-1" href="#">Lihat Detail</a>
+                        <div class="col-12 d-xl-none detailButtonResponsive">
+                            <a class="btn btn-light" href="#">Lihat Detail</a>
                             <a class="btn btn-warning" href="#">Beli Tiket</a>
                         </div>
                     </div>

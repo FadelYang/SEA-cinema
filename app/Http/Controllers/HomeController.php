@@ -33,6 +33,6 @@ class HomeController extends Controller
 
         $movieApiResponseBody = json_decode($movieApiResponse->getBody());
 
-        return collect($movieApiResponseBody)->paginate(2);
+        return collect($movieApiResponseBody)->paginate(10);
     }
 }
