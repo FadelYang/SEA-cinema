@@ -2,7 +2,7 @@
  
 namespace App\Providers\ViewComposers;
 
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MovieController;
 use Illuminate\Support\ServiceProvider;
  
 class ComposerServiceProvider extends ServiceProvider
@@ -15,8 +15,8 @@ class ComposerServiceProvider extends ServiceProvider
     public function boot()
     {
         // Using Closure based composers...
-        view()->creator(['home', 'welcome', 'detail'], function ($view) {
-            $movies = app(HomeController::class)->getMovieList();
+        view()->creator(['welcome', 'detail', 'recommendation'], function ($view) {
+            $movies = app(MovieController::class)->getMovieList(true);
 
             $view->with('movies', $movies); 
         });
