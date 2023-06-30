@@ -16,7 +16,7 @@ class ComposerServiceProvider extends ServiceProvider
     {
         // Using Closure based composers...
         view()->creator(['welcome', 'detail', 'recommendation'], function ($view) {
-            $movies = app(MovieController::class)->getMovieList(true);
+            $movies = app(MovieController::class)->getMovieList(inRandomOrder: true);
 
             $view->with('movies', $movies); 
         });

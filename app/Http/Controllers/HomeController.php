@@ -14,7 +14,7 @@ class HomeController extends MovieController
      */
     public function index(Request $request)
     {
-        $movies = $this->getMovieList(false);
+        $movies = $this->getMovieList(inRandomOrder: false);
 
         $query = $request->get('query');
 
