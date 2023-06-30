@@ -2,43 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use GuzzleHttp\Client;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\View;
 
 class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
-
-    /**
-     * Show the application dashboard.
+     * Show the application home page.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
-        $movies = $this->getMovieList();
-
-        dd($movies);
-
-        return view('home', [$movies]);
+        return view('home');
     }
 
-    private function getMovieList()
+    public function getMovieList()
     {
-        $apiUrl = "https://seleksi-sea-2023.vercel.app/api/movies";
-        $response = Http::get($apiUrl);
+        $movieApiUrl = "https://seleksi-sea-2023.vercel.app/api/movies";
+        $movieApiResponse = Http::get($movieApiUrl);
 
-        $movies = json_decode($response->getBody());
+        $movieApiResponseBody = json_decode($movieApiResponse->getBody());
 
-        return $movies;
+        return collect($movieApiResponseBody)->shuffle();
     }
 }
