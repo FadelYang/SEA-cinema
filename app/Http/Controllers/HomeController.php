@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Utils\PaginateCollection;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\View;
 
 class HomeController extends Controller
 {
@@ -12,9 +13,17 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('home');
+        $movies = $this->getMovieList();
+
+        $query = $request->get('query');
+
+
+        return view('home', [
+            'movies' => $movies,
+            'showPagination' => is_null(request('all'))
+        ]);
     }
 
     public function getMovieList()
@@ -24,6 +33,6 @@ class HomeController extends Controller
 
         $movieApiResponseBody = json_decode($movieApiResponse->getBody());
 
-        return collect($movieApiResponseBody)->shuffle();
+        return collect($movieApiResponseBody)->paginate(2);
     }
 }
