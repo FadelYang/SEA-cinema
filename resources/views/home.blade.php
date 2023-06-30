@@ -2,11 +2,13 @@
 
 @section('content')
     {{-- search input --}}
-    <section class="container input-group mt-5">
-        <input type="text" class="form-control" placeholder="Search movie name" aria-label="Movie Name"
-            aria-describedby="basic-addon2">
-        <span class="input-group-text" id="basic-addon2"><i class="fas fa-search"></i></span>
-    </section>
+    <form action="{{ route('home') }}" method="get">
+        <section class="container input-group mt-5">
+            <input type="text" class="form-control" placeholder="Cari film berdasarkan judul" aria-label="Movie Name"
+                aria-describedby="basic-addon2" name="query">
+            <button type="submit" class="input-group-text" id="basic-addon2"><i class="fas fa-search"></i></button>
+        </section>
+    </form>
 
 
     {{-- movie list section --}}
@@ -23,7 +25,7 @@
                         Previous
                     </a>
                 </li>
-                @for ($i = 1; $i <= $movies->lastPage() + 1; $i++)
+                @for ($i = 1; $i <= $movies->lastPage(); $i++)
                     <li class="page-item {{ $movies->currentPage() == $i ? 'active' : '' }}">
                         <a href="{{ $movies->url($i) }}" class="page-link">{{ $i }}</a>
                     </li>
@@ -37,10 +39,11 @@
         </nav>
     </section>
 @endsection
+
 @push('css')
     <style>
         .movieDescription {
-            overflow: scroll;
+            overflow: hidden;
             display: -webkit-box;
             -webkit-line-clamp: 6;
             -webkit-box-orient: vertical;
