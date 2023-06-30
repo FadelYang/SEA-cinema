@@ -1,12 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
-    {{-- movie list section --}}
-    <section class="container mt-5">
-        @include('movies.movie-list')
+    {{-- search input --}}
+    <section class="container input-group mt-5">
+        <input type="text" class="form-control" placeholder="Search movie name" aria-label="Movie Name"
+            aria-describedby="basic-addon2">
+        <span class="input-group-text" id="basic-addon2"><i class="fas fa-search"></i></span>
     </section>
 
 
+    {{-- movie list section --}}
+    <section class="container mt-3">
+        @include('movies.movie-list')
+    </section>
+
+    {{-- pagination --}}
     <section class="container mt-2">
         <nav aria-label="...">
             <ul class="pagination">
@@ -27,8 +35,6 @@
                 </li>
             </ul>
         </nav>
-
-
     </section>
 @endsection
 @push('css')
