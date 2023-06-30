@@ -1,4 +1,10 @@
 <div class="row">
+    @if ( sizeOf($movies) == 0)
+        <div class="text-center">
+            - Judul Film Tidak Ditemukan -
+        </div>
+    @endif
+
     @foreach ($movies->chunk(3) as $movieChunk)
         @foreach ($movieChunk as $movie)
             <div class="row col-xl-6 mb-2">
