@@ -9,9 +9,9 @@
         @foreach ($movieChunk as $movie)
             <div class="row col-xl-6 mb-2">
                 <div class="col-sm-6 imageContainer">
-                    <img src="{{ $movie->poster_url }}" alt="{{ $movie->title }} poster" class="img-fluid image">
+                    <img src="{{ $movie->poster_url }}" alt="{{ $movie->title }} poster" class="img-fluid image" title="{{ $movie->title }}">
                     <div class="detailButton">
-                        <a class="btn btn-light mb-1" href="#">Lihat Detail</a>
+                        <a class="btn btn-light mb-1" href="{{ route('movie.detail', $movie->title) }}">Lihat Detail</a>
                         <a class="btn btn-dark" href="#">Beli Tiket</a>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                             <p>Ticket Price: <span class="badge bg-primary">{{ $movie->ticket_price }}</span></p>
                         </div>
                         <div class="col-12 d-xl-none detailButtonResponsive">
-                            <a class="btn btn-light" href="#">Lihat Detail</a>
+                            <a class="btn btn-light" href="{{ route('movie.detail', $movie->title) }}">Lihat Detail</a>
                             <a class="btn btn-warning" href="#">Beli Tiket</a>
                         </div>
                     </div>

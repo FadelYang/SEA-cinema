@@ -84,8 +84,6 @@
 
 
     <script src="{{ asset('js/main.js') }}"></script>
-    @push('js')
-        
-    @endpush
+    @stack('js')
 </body>
 </html>
