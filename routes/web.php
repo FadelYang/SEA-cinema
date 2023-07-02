@@ -43,3 +43,7 @@ Route::get('/user/{username}', [UserController::class, 'getUserProfilePage'])
 Route::get('/user/{username}/topup-balance', [UserBalanceController::class, 'getTopUpBalancePage'])
     ->name('balance.topup-page')
     ->middleware('auth');
+
+Route::put('/user', [UserBalanceController::class, 'TopUpBalance'])
+    ->name('balance.topup')
+    ->middleware('auth');
