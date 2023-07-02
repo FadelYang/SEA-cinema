@@ -28,4 +28,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/movie/{title}', [MovieController::class, 'getMovieDetail'])->name('movie.detail');
 
 // ticket
-Route::get('/movie/{title}/buy-ticket', [TicketController::class, 'getBuyTicketPage'])->name('ticket.buy-page');
+Route::get('/movie/{title}/buy-ticket', [TicketController::class, 'getBuyTicketPage'])
+    ->name('ticket.buy-page')
+    ->middleware('auth');
