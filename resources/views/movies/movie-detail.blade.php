@@ -2,6 +2,9 @@
 
 @section('content')
     <div class="container mt-5">
+        {{-- alert message --}}
+        @include('components.alert-with-message')
+
         @foreach ($movieDetail as $movie)
             <p class="h1 text-center mb-2">{{ $movie->title }} ({{ $movie->age_rating }}+)</p>
 
