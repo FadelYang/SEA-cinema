@@ -12,7 +12,7 @@
                         <p>Email : <span class="badge bg-primary">{{ $user->email }}</span></p>
                         <p>Birthday : <span class="badge bg-primary">{{ $userBirthDay }}</span></p>
                         <p>Current Balance : <span class="badge bg-warning">{{ $user->balance ?? '0' }}</span></p>
-                        <a href="#" class="btn btn-success">Top up Balance</a>
+                        <a href="{{ route('balance.topup-page', Auth::user()->username) }}" class="btn btn-success">Top up Balance</a>
                     </div>
                 </div>
             </div>
