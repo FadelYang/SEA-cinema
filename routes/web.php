@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -30,4 +31,9 @@ Route::get('/movie/{title}', [MovieController::class, 'getMovieDetail'])->name('
 // ticket
 Route::get('/movie/{title}/buy-ticket', [TicketController::class, 'getBuyTicketPage'])
     ->name('ticket.buy-page')
+    ->middleware('auth');
+
+// user
+Route::get('/user/{username}', [UserController::class, 'getUserProfilePage'])
+    ->name('user.profile')
     ->middleware('auth');
