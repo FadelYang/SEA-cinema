@@ -17,7 +17,17 @@
                 </div>
             </div>
             <div class="col-6">
-                <p class="h1">Ticket Transaction History</p>
+                <div class="row">
+                    <div>
+                        <p class="h1">Ticket Transaction History</p>
+                        <p class="alert alert-info p-5 text-center ">There will appears transaction history here</p>
+                    </div>
+                    <div class="mt-5">
+                        <p class="h1">Top Up Balance History</p>
+                        <p class="alert alert-info p-5 text-center ">There will appears Top Up Balance history here</p>
+
+                    </div>
+                </div>
             </div>
         </div>
 
