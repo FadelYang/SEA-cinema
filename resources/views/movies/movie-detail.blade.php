@@ -11,7 +11,7 @@
                     <img src="{{ $movie->poster_url }}" alt="{{ $movie->title }} poster" class="img-fluid" title="{{ $movie->title }}">
                 </div>
                 <div class="col-md-8">
-                    <a href="#" class="btn btn-warning mt-md-0 mt-3 mb-3">Buy Ticket</a>
+                    <a href="{{ route('ticket.buy-page', $movie->title) }}" class="btn btn-warning mt-md-0 mt-3 mb-3">Buy Ticket</a>
                     <p class="h5">Release Date : <span
                             class="badge bg-primary">{{ Carbon\Carbon::createFromFormat('Y-m-d', $movie->release_date)->format('d F Y') }}</span>
                     </p>
