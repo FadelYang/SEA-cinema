@@ -12,7 +12,7 @@
                     <img src="{{ $movie->poster_url }}" alt="{{ $movie->title }} poster" class="img-fluid image" title="{{ $movie->title }}">
                     <div class="detailButton">
                         <a class="btn btn-light mb-1" href="{{ route('movie.detail', $movie->title) }}">Lihat Detail</a>
-                        <a class="btn btn-dark" href="#">Beli Tiket</a>
+                        <a class="btn btn-dark" href="{{ route('ticket.buy-page', $movie->title) }}">Beli Tiket</a>
                     </div>
                 </div>
                 <div class="col-sm-6 d-flex flex-column justify-content-xl-between">
@@ -30,7 +30,7 @@
                         </div>
                         <div class="col-12 d-xl-none detailButtonResponsive">
                             <a class="btn btn-light" href="{{ route('movie.detail', $movie->title) }}">Lihat Detail</a>
-                            <a class="btn btn-warning" href="#">Beli Tiket</a>
+                            <a class="btn btn-warning" href="{{ route('ticket.buy-page', $movie->title) }}">Beli Tiket</a>
                         </div>
                     </div>
                 </div>
