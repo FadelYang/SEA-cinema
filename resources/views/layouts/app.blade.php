@@ -83,7 +83,7 @@
     </div>
 
 
-    <script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('js/jquery.js') }}"></script>
     @stack('js')
 </body>
 </html>
