@@ -10,6 +10,10 @@
         </section>
     </form>
 
+    {{-- alert message --}}
+    <div class="container mt-3">
+        @include('components.alert-with-message')
+    </div>
 
     {{-- movie list section --}}
     <section class="container mt-3">
