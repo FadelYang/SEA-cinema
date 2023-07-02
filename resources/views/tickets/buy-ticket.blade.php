@@ -6,7 +6,7 @@
             <div class="col-md-8">
                 <p class="h3 text-center bg-primary py-2 text-white">Seat Layout</p>
 
-                
+
                 <div class="overflow-scroll seat-layout-wrap">
                     <p class="text-center m-5">SCREEN</p>
                     <div class="btn-group mt-5" role="group" aria-label="Basic checkbox toggle button group">
@@ -66,7 +66,8 @@
                                         class="badge bg-primary"></span></strong></p>
                         </div>
                         <div>
-                            <a href="#" class="btn btn-warning">Beli Tiket</a>
+                            <a href="{{ route('movie.detail', $movie->title) }}" class="btn btn-secondary">Kembali</a>
+                            <button href="#" class="btn btn-warning" id="buyTicketButton">Buy Tiket</button>
                         </div>
                     </div>
                 </div>
@@ -98,6 +99,7 @@
 @push('js')
     <script>
         $(document).ready(function() {
+            // calculate ticket detail
             let totalSeatSelected = 0;
             let limitSeatSelected = 6;
             let ticketPrice = $('#ticketPrice').text().trim();
@@ -121,7 +123,7 @@
                 if (totalSeatSelected > limitSeatSelected) {
                     // Uncheck the last selected checkbox if the limit is exceeded
                     $(this).prop('checked', false);
-                    alert('Masimal 6 tiket')
+                    alert('Masimal 6 tiket');
 
                     $('#totalSeatsAlert').text("Maskimal 6 tiket");
 
@@ -138,6 +140,12 @@
                 $('#totalTicketPrice').text(totalTicketPrice);
             });
 
+            // check before buy ticket
+            $('#buyTicketButton').on('click', function() {
+                confirm('Apakah kamu yakin?\n\nPastikan kamu sudah memilih tiket dan tempat duduk yang benar dan sesuai keinginan');
+
+                return;
+            })
         });
     </script>
 @endpush
