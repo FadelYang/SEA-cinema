@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Redirect;
 
 class TicketController extends Controller
@@ -9,8 +10,9 @@ class TicketController extends Controller
     public function getBuyTicketPage($movieTitle)
     {
         $movieItem = collect((new MovieController)->getMovieData())->where('title', $movieTitle);
-        $userAge = auth()->user()->age;
+        $userAge = Carbon::parse(auth()->user()->birthday)->age;
 
+        // check are user can watch the movie depend their age
         foreach ($movieItem as $movie) {
             $movieAgeRating = $movie->age_rating;
         }
