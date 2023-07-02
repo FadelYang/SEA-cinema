@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('username');
-            $table->integer('age', false);
+            $table->timestamp('birthday');
             $table->integer('balance', false)->nullable(true);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
