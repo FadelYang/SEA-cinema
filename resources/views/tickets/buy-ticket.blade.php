@@ -8,7 +8,7 @@
         <form action="{{ route('ticket.buy', $movie->title) }}" method="POST" enctype="multipart/form-data" id="buyTicket">
             @csrf
 
-            <div class="container mt-5">
+            <div class="container mt-2">
                 <div class="row">
                     <div class="col-md-8">
                         <p class="h3 text-center bg-primary py-2 text-white">Seat Layout</p>
@@ -16,15 +16,25 @@
 
                         <div class="overflow-scroll seat-layout-wrap">
                             <p class="text-center m-5">SCREEN</p>
-                            <div class="btn-group mt-5" role="group" aria-label="Basic checkbox toggle button group">
+                            <div class="btn-group mt-1" role="group" aria-label="Basic checkbox toggle button group">
                                 @for ($row = 1; $row <= 9; $row++)
                                     <div class="row">
                                         @for ($col = 1; $col <= 7; $col++)
+                                            @php
+                                                $disabled = false;
+                                                foreach ($bookedSeats as $bookedSeat) {
+                                                    if ($bookedSeat->seat_number == chr(64 + $col) . $row) {
+                                                        $disabled = true;
+                                                        break;
+                                                    }
+                                                }
+                                            @endphp
                                             <div class="col my-1 mx-sm-0 mx-1">
                                                 <input type="checkbox" class="btn-check smallCheckbox seatCheckbox"
                                                     id="btncheck{{ $row }}{{ $col }}" autocomplete="off"
-                                                    name="seats[]" value="{{ chr(64 + $col) }}{{ $row }}">
-                                                <label class="btn btn-outline-primary"
+                                                    name="seats[]" value="{{ chr(64 + $col) }}{{ $row }}"
+                                                    {{ $disabled ? 'disabled' : '' }}>
+                                                <label class="btn {{ $disabled ? 'btn-secondary' : 'btn-primary' }}"
                                                     for="btncheck{{ $row }}{{ $col }}">
                                                     {{ chr(64 + $col) }}{{ $row }}
                                                 </label>
@@ -32,6 +42,24 @@
                                         @endfor
                                     </div>
                                 @endfor
+
+                            </div>
+
+                            <div class="d-flex justify-content-center mt-4">
+                                <div class="mx-1 text-center">
+                                    <input type="checkbox" class="btn-check smallCheckbox seatCheckbox" disabled>
+                                    <label class="btn btn-secondary">
+                                        ZZ
+                                    </label>
+                                    <p>booked</p>
+                                </div>
+                                 <div class="mx-1 text-center">
+                                    <input type="checkbox" class="btn-check smallCheckbox seatCheckbox">
+                                    <label class="btn btn-primary">
+                                        ZZ
+                                    </label>
+                                    <p>available</p>
+                                </div>
                             </div>
                         </div>
 
@@ -53,11 +81,12 @@
                                 </p>
                                 <p class="h5">Ticket Price : <span
                                         class="badge bg-primary">{{ $movie->ticket_price }}</span></p>
-                                <input type="text" name="ticket_price" class="d-none" value="{{ $movie->ticket_price }}">
+                                <input type="text" name="ticket_price" class="d-none"
+                                    value="{{ $movie->ticket_price }}">
                                 <p class="h5">Age Rating : <span
                                         class="badge bg-primary">{{ $movie->age_rating }}</span>
-                                <input type="text" name="movie_age_rating" class="d-none" value="{{ $movie->age_rating }}">
-
+                                    <input type="text" name="movie_age_rating" class="d-none"
+                                        value="{{ $movie->age_rating }}">
     @endforeach
     </div>
     <div class="col-12 mt-2 ">
