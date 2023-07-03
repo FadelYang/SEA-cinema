@@ -52,8 +52,18 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function comments(): HasMany
+    public function topUpBalance(): HasMany
     {
         return $this->hasMany(TopUpBalanceHistoryModel::class, 'user_id', 'id');
+    }
+
+    /**
+     * Get all of the comments for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function ticketTransaction(): HasMany
+    {
+        return $this->hasMany(TicketTransactionModel::class, 'user_id', 'id');
     }
 }
