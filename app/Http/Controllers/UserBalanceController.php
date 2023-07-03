@@ -36,7 +36,7 @@ class UserBalanceController extends MovieController
         // store top up balance history
         $this->storeTopUpBalanceHistory(userId: $user->id, topUpAmount: $request->balance);
 
-        return Redirect()->back()->with('success', "Berhasil topup sebanyak $currentBalance. Balance anda sekarang $updateBalance");
+        return Redirect()->back()->with('success', "Berhasil topup sebanyak $request->balance. Balance anda sekarang $updateBalance");
     }
 
     public function storeTopUpBalanceHistory($userId, $topUpAmount)
