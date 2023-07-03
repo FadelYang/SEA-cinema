@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Traits\Uuids;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,6 +17,7 @@ class TicketTransactionModel extends Model
 
     protected $fillable = [
         'user_id',
+        'xid',
         'movie_title',
         'movie_age_rating',
         'seat_number',
