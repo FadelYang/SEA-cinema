@@ -10,38 +10,40 @@
 
             <div class="container mt-2">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-xl-8">
                         <p class="h3 text-center bg-primary py-2 text-white">Seat Layout</p>
 
 
                         <div class="overflow-scroll seat-layout-wrap">
                             <p class="text-center m-5">SCREEN</p>
                             <div class="btn-group mt-1" role="group" aria-label="Basic checkbox toggle button group">
-                                @for ($row = 1; $row <= 9; $row++)
-                                    <div class="row">
-                                        @for ($col = 1; $col <= 7; $col++)
+                                <div class="row">
+                                    @for ($row = 1; $row <= 8; $row++)
+                                        @for ($col = 1; $col <= 8; $col++)
                                             @php
+                                                $seatNumber = ($row - 1) * 8 + $col;
                                                 $disabled = false;
                                                 foreach ($bookedSeats as $bookedSeat) {
-                                                    if ($bookedSeat->seat_number == chr(64 + $col) . $row) {
+                                                    if ($bookedSeat->seat_number == $seatNumber) {
                                                         $disabled = true;
                                                         break;
                                                     }
                                                 }
                                             @endphp
-                                            <div class="col my-1 mx-sm-0 mx-1">
+                                            <div class="col-1 my-1 mx-sm-0 mx-2">
                                                 <input type="checkbox" class="btn-check smallCheckbox seatCheckbox"
                                                     id="btncheck{{ $row }}{{ $col }}" autocomplete="off"
-                                                    name="seats[]" value="{{ chr(64 + $col) }}{{ $row }}"
+                                                    name="seats[]" value="{{ $seatNumber }}"
                                                     {{ $disabled ? 'disabled' : '' }}>
                                                 <label class="btn {{ $disabled ? 'btn-secondary' : 'btn-primary' }}"
                                                     for="btncheck{{ $row }}{{ $col }}">
-                                                    {{ chr(64 + $col) }}{{ $row }}
+                                                    {{ $seatNumber }}
                                                 </label>
                                             </div>
                                         @endfor
-                                    </div>
-                                @endfor
+                                    @endfor
+                                </div>
+
 
                             </div>
 
@@ -53,7 +55,7 @@
                                     </label>
                                     <p>booked</p>
                                 </div>
-                                 <div class="mx-1 text-center">
+                                <div class="mx-1 text-center">
                                     <input type="checkbox" class="btn-check smallCheckbox seatCheckbox">
                                     <label class="btn btn-primary">
                                         ZZ
@@ -66,7 +68,7 @@
 
                     </div>
 
-                    <div class="col-md-4 mt-sm-0 mt-5">
+                    <div class="col-xl-4 mt-sm-0 mt-5">
                         <div class="row">
                             <div class="col-12">
                                 <p class="h3 text-center mb-3 bg-primary py-2 text-white">Film Detail</p>
