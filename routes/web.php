@@ -31,8 +31,9 @@ Route::get('/movie/{title}', [MovieController::class, 'getMovieDetail'])->name('
 
 // ticket
 Route::get('/movie/{title}/buy-ticket', [TicketController::class, 'getBuyTicketPage'])
-    ->name('ticket.buy-page')
-    ->middleware('auth');
+    ->name('ticket.buy-page')->middleware('auth');
+Route::post('/movie/{title}', [TicketController::class, 'BuyTicket'])
+    ->name('ticket.buy')->middleware('auth');
 
 // user
 Route::get('/user/{username}', [UserController::class, 'getUserProfilePage'])
@@ -41,9 +42,6 @@ Route::get('/user/{username}', [UserController::class, 'getUserProfilePage'])
 
 // balance
 Route::get('/user/{username}/topup-balance', [UserBalanceController::class, 'getTopUpBalancePage'])
-    ->name('balance.topup-page')
-    ->middleware('auth');
-
+    ->name('balance.topup-page')->middleware('auth');
 Route::put('/user', [UserBalanceController::class, 'TopUpBalance'])
-    ->name('balance.topup')
-    ->middleware('auth');
+    ->name('balance.topup')->middleware('auth');
