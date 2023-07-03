@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('ticket_transaction_history', function (Blueprint $table) {
             $table->id();
+            $table->string('xid');
             $table->unsignedBigInteger('user_id');
             $table->string('movie_title');
             $table->string('movie_age_rating');
