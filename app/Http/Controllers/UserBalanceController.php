@@ -47,13 +47,23 @@ class UserBalanceController extends MovieController
         ]);
     }
 
+    public function getIndexTopUpHistoryPage()
+    {
+        $user = auth()->user();
+        $userTopUpBalanceHistory = $this->getTopUpBalanceHistory($user->id);
+
+        return view('balances.index-history', [
+            'topUpBalanceHistory' => $userTopUpBalanceHistory,
+        ]);
+    }
+
     public function getTopUpBalanceHistory($userId)
     {
-        return TopUpBalanceHistoryModel::where('user_id', $userId)->orderBy('created_at')->get();
+        return TopUpBalanceHistoryModel::where('user_id', $userId)->orderBy('created_at', 'desc')->paginate(9);
     }
 
     public function getLatestTopUpBalanceHistory($userId)
     {
-        return TopUpBalanceHistoryModel::where('user_id', $userId)->first();
+        return TopUpBalanceHistoryModel::where('user_id', $userId)->orderBy('created_at', 'desc')->first();
     }
 }
