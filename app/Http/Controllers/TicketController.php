@@ -17,12 +17,18 @@ class TicketController extends Controller
 {
     public function getBuyTicketPage($movieTitle)
     {
+        $user = auth()->user();
         $movieItem = collect((new MovieController)->getMovieData())->where('title', $movieTitle);
-        $userAge = Carbon::parse(auth()->user()->birthday)->age;
+        $userAge = Carbon::parse($user->birthday)->age;
         $bookedSeats = TicketTransactionModel::where([
             ['status', TicketStatusEnum::SUCCESS],
             ['movie_title', $movieTitle]
         ])->get();
+
+        $userBookedSeats = count(TicketTransactionModel::where([
+            ['user_id', $user->id],
+            ['movie_title', $movieTitle],
+        ])->get());
 
         // check are user can watch the movie depend their age
         foreach ($movieItem as $movie) {
@@ -36,7 +42,7 @@ class TicketController extends Controller
         return view('tickets.buy-ticket', [
             'movie' => $movieItem,
             'bookedSeats' => $bookedSeats,
-        ]);
+        ])->with('totalTicketMessage', "You alerady have $userBookedSeats tickets for this movie, the maximum is 6");
     }
 
     public function buyTicket(Request $request)
