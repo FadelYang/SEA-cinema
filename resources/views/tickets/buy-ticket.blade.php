@@ -17,7 +17,7 @@
                         <div class="overflow-scroll seat-layout-wrap">
                             <p class="text-center m-5">SCREEN</p>
                             <div class="btn-group mt-1" role="group" aria-label="Basic checkbox toggle button group">
-                                <div class="row">
+                                <div class="row justify-content-center">
                                     @for ($row = 1; $row <= 8; $row++)
                                         @for ($col = 1; $col <= 8; $col++)
                                             @php
@@ -30,7 +30,7 @@
                                                     }
                                                 }
                                             @endphp
-                                            <div class="col-1 my-1 mx-sm-0 mx-2">
+                                            <div class="col-1 d-flex justify-content-center my-1 mx-sm-0 mx-2">
                                                 <input type="checkbox" class="btn-check smallCheckbox seatCheckbox"
                                                     id="btncheck{{ $row }}{{ $col }}" autocomplete="off"
                                                     name="seats[]" value="{{ $seatNumber }}"
@@ -89,39 +89,44 @@
                                         class="badge bg-primary">{{ $movie->age_rating }}</span>
                                     <input type="text" name="movie_age_rating" class="d-none"
                                         value="{{ $movie->age_rating }}">
+                            </div>
+                            <div class="col-12 mt-2 ">
+                                <div>
+                                    <p class="h3 text-center mb-3 bg-primary py-2 text-white">Ticket Detail</p>
+                                    <p class="badge bg-danger">{{ $totalTicketMessage }}</p>
+
+                                    <p class="h5">Seat(s) Selected : <span id="selectedSeats"
+                                            class="badge bg-primary"></span>
+                                    </p>
+                                    <p class="h5">Total Seat(s) : <span id="totalSeats"
+                                            class="badge bg-primary totalSeats"></span>
+                                        <span id="totalSeatsAlert" class="badge bg-danger"></span>
+                                    </p>
+                                    <p class="h5">Price Per Ticket : <span class="badge bg-primary"
+                                            id="ticketPrice">{{ $movie->ticket_price }}</span></p>
+                                    <p class="h5">Ticket Total : <span class="badge bg-primary"
+                                            id="totalTickets"></span>
+                                    </p>
+                                    <br>
+                                    <p class="h5"><strong>Total Price : <span id="totalTicketPrice"
+                                                class="badge bg-primary"></span></strong>
+                                    </p>
+                                </div>
+                                <div>
+                                    <a href="{{ route('movie.detail', $movie->title) }}"
+                                        class="btn btn-secondary">Kembali</a>
+                                    <button type="submit" class="btn btn-warning" id="buyTicketButton">Buy Tiket</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            </div>
+            </div>
+        </form>
     @endforeach
-    </div>
-    <div class="col-12 mt-2 ">
-        <div>
-            <p class="h3 text-center mb-3 bg-primary py-2 text-white">Ticket Detail</p>
-
-            <p class="h5">Seat(s) Selected : <span id="selectedSeats" class="badge bg-primary"></span>
-            </p>
-            <p class="h5">Total Seat(s) : <span id="totalSeats" class="badge bg-primary totalSeats"></span>
-                <span id="totalSeatsAlert" class="badge bg-danger"></span>
-            </p>
-            <p class="h5">Price Per Ticket : <span class="badge bg-primary"
-                    id="ticketPrice">{{ $movie->ticket_price }}</span></p>
-            <p class="h5">Ticket Total : <span class="badge bg-primary" id="totalTickets"></span>
-            </p>
-            <br>
-            <p class="h5"><strong>Total Price : <span id="totalTicketPrice" class="badge bg-primary"></span></strong>
-            </p>
-        </div>
-        <div>
-            <a href="{{ route('movie.detail', $movie->title) }}" class="btn btn-secondary">Kembali</a>
-            <button type="submit" class="btn btn-warning" id="buyTicketButton">Buy Tiket</button>
-        </div>
-    </div>
-    </div>
-    </div>
-
-    </div>
-    </div>
-    </div>
-    </div>
-    </form>
-
 @endsection
 
 @push('css')
