@@ -32,7 +32,7 @@
                             @else
                                 <div>
                                     <p>Top Up Date : <span
-                                            class="badge bg-primary">{{ date('d F Y', strtotime($topUpBalanceHistory->created_at)) }}</span>
+                                            class="badge bg-primary">{{ date('d F Y - h:m:s', strtotime($topUpBalanceHistory->created_at)) }}</span>
                                     </p>
                                     <p>Top Up Amount : <span
                                             class="badge bg-primary">{{ $topUpBalanceHistory->amount }}</span></p>
