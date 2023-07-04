@@ -14,7 +14,7 @@
                         <div class="alert alert-info">
                             <div>
                                 <p>Top Up Date : <span
-                                        class="badge bg-primary">{{ date('d F Y', strtotime($item->created_at)) }}</span>
+                                        class="badge bg-primary">{{ date('d F Y - h:m:s', strtotime($item->created_at)) }}</span>
                                 </p>
                                 <p>Top Up Amount : <span class="badge bg-primary">{{ $item->amount }}</span></p>
                             </div>
@@ -45,5 +45,9 @@
                 </li>
             </ul>
         </nav>
+    </section>
+    
+    <section class="container">
+        <a href="{{ route('user.profile', auth()->user()->username) }}" class="btn btn-secondary">Kembali</a>
     </section>
 @endsection
