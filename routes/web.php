@@ -45,3 +45,5 @@ Route::get('/user/{username}/topup-balance', [UserBalanceController::class, 'get
     ->name('balance.topup-page')->middleware('auth');
 Route::put('/user', [UserBalanceController::class, 'TopUpBalance'])
     ->name('balance.topup')->middleware('auth');
+Route::get('/user/{username}/index-topup-history', [UserBalanceController::class, 'getIndexTopUpHistoryPage'])
+    ->name('balance.index-history')->middleware('auth');

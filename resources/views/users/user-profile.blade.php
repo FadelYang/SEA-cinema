@@ -38,7 +38,7 @@
                                             class="badge bg-primary">{{ $topUpBalanceHistory->amount }}</span></p>
                                 </div>
                         </div>
-                        <a href="#" class="btn btn-warning">See All Transaction</a>
+                        <a href="{{ route('balance.index-history', auth()->user()->username) }}" class="btn btn-warning">See All Transaction</a>
                         @endif
 
                     </div>
