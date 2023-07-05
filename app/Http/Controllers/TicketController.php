@@ -99,4 +99,9 @@ class TicketController extends Controller
             return Redirect::back()->with('message', "Ada kesalahan, pastika anda sudah memilih tempat duduk dengan benar $th");
         }
     }
+
+    public function getLatestTicketTransaction($userId)
+    {
+        return TicketTransactionModel::where('user_id', $userId)->orderBy('created_at', 'desc')->first();
+    }
 }
