@@ -100,8 +100,23 @@ class TicketController extends Controller
         }
     }
 
+    public function getIndexTicketTransactionHistoryPage()
+    {
+        $user = auth()->user();
+        $userTicketTransactionHistory = $this->getAllTicketTransaction($user->id);
+
+        return view('tickets.index-history', [
+            'ticketTransactionHistory' => $userTicketTransactionHistory,
+        ]);
+    }
+
     public function getLatestTicketTransaction($userId)
     {
         return TicketTransactionModel::where('user_id', $userId)->orderBy('created_at', 'desc')->first();
+    }
+
+    public function getAllTicketTransaction($userId)
+    {
+        return TicketTransactionModel::where('user_id', $userId)->orderBy('created_at', 'desc')->paginate(9);
     }
 }

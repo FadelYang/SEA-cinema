@@ -37,7 +37,7 @@
                                     <a href="#" class="btn btn-primary">Get Detail</a>
                                 </div>
                         </div>
-                        <a href="{{ route('balance.index-history', auth()->user()->username) }}" class="btn btn-warning">See
+                        <a href="{{ route('tickets.index-history', auth()->user()->username) }}" class="btn btn-warning">See
                             All Transaction</a>
                         @endif
                     </div>
