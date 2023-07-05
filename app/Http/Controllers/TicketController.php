@@ -119,6 +119,42 @@ class TicketController extends Controller
         ]);
     }
 
+    public function cancelBuyTicket($user = null, $ticketXId)
+    {
+        try {
+            $user = auth()->user();
+            $ticketItem = TicketTransactionModel::where([
+                ['user_id', $user->id],
+                ['xid', $ticketXId],
+            ])->first();
+
+            dd($ticketItem->status == TicketStatusEnum::CANCELED);
+
+            if ($ticketItem->status === TicketStatusEnum::CANCELED) {
+                return Redirect()->back()->with('error', 'Tiket anda sudah dibatalkan');
+            }
+
+            $ticketItem->update(['status' => TicketStatusEnum::CANCELED]);
+
+            // update user balance when canceled process success and create new top up history
+            (new UserBalanceController)
+                ->storeTopUpBalanceHistory(
+                    userId: $user->id,
+                    topUpAmount: $ticketItem->ticket_price,
+                    topUpNotes: "Ticket Refund"
+                );
+
+            // update balance user
+            User::where('id', $user->id)->update(['balance' => $user->balance + $ticketItem->ticket_price]);
+
+            return Redirect()->back()->with('success', 'Berhasil membatalkan tiket, saldo anda sudah diupdate sesuai jumlah tiket yang direfund');
+        } catch (\Throwable $th) {
+            return Redirect()->back()->with('error', 'Gagal membatalkan tiket, silahkan coba lagi');
+        }
+      
+
+    }
+
     public function getLatestTicketTransaction($userId)
     {
         return TicketTransactionModel::where('user_id', $userId)->orderBy('created_at', 'desc')->first();
