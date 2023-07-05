@@ -38,6 +38,8 @@ Route::get('/user/{username}/index-ticket-transaction-history', [TicketControlle
     ->name('tickets.index-history')->middleware('auth');
 Route::get('/user/{username}/detail-ticket/{ticketXId}', [TicketController::class, 'getTicketDetail'])
     ->name('tickets.detail')->middleware('auth');
+Route::get('/user/{username}/cancel-ticket/{ticketXId}', [TicketController::class, 'cancelBuyTicket'])
+    ->name('tickets.cancel-ticket')->middleware('auth');
 
 // user
 Route::get('/user/{username}', [UserController::class, 'getUserProfilePage'])
