@@ -44,6 +44,7 @@ class UserBalanceController extends MovieController
         TopUpBalanceHistoryModel::create([
             'user_id' => $userId,
             'amount' => $topUpAmount,
+            'notes' => "Top Up Balance",
         ]);
     }
 

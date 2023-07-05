@@ -16,6 +16,7 @@ class TopUpBalanceHistoryModel extends Model
     protected $fillable = [
         'user_id',
         'amount',
+        'notes',
     ];
 
     /**
