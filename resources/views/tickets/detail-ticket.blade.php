@@ -3,7 +3,7 @@
 @section('content')
     <div class="container mt-5">
         @include('components.alert-with-message')
-        <p>Hola amigos</p>
+        <p class="h1">Ticket Detail</p>
 
         <div class="col-sm-4">
             <div class="alert alert-info">
@@ -15,7 +15,7 @@
                     <p>Seat Number : <span class="badge bg-primary">{{ $ticketItem->seat_number }}</span></p>
                     <p>Ticket Price : <span class="badge bg-primary">{{ $ticketItem->ticket_price }}</span></p>
                     <p>Status : <span
-                            class="badge {{ $ticketItem->status === App\Enum\TicketStatusEnum::SUCCESS ? 'bg-success' : 'bg-danger' }}">{{ $ticketItem->status === App\Enum\TicketStatusEnum::SUCCESS ? 'Success' : 'Canceled' }}</span>
+                            class="badge {{ $ticketItem->status === App\Enum\TicketStatusEnum::SUCCESS->value ? 'bg-success' : 'bg-danger' }}">{{ $ticketItem->status === App\Enum\TicketStatusEnum::SUCCESS->value ? 'Success' : 'Canceled' }}</span>
                     </p>
                 </div>
             </div>
