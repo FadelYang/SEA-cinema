@@ -15,32 +15,35 @@
 
 
                         <div class="overflow-scroll seat-layout-wrap">
-                            <p class="text-center m-5">SCREEN</p>
                             <div class="btn-group mt-1" role="group" aria-label="Basic checkbox toggle button group">
                                 <div class="row justify-content-center">
+                                    <p class="text-center m-5">SCREEN</p>
+
                                     @for ($row = 1; $row <= 8; $row++)
-                                        @for ($col = 1; $col <= 8; $col++)
-                                            @php
-                                                $seatNumber = ($row - 1) * 8 + $col;
-                                                $disabled = false;
-                                                foreach ($bookedSeats as $bookedSeat) {
-                                                    if ($bookedSeat->seat_number == $seatNumber) {
-                                                        $disabled = true;
-                                                        break;
+                                        <div class="d-flex justify-content-center">
+                                            @for ($col = 1; $col <= 8; $col++)
+                                                @php
+                                                    $seatNumber = ($row - 1) * 8 + $col;
+                                                    $disabled = false;
+                                                    foreach ($bookedSeats as $bookedSeat) {
+                                                        if ($bookedSeat->seat_number == $seatNumber) {
+                                                            $disabled = true;
+                                                            break;
+                                                        }
                                                     }
-                                                }
-                                            @endphp
-                                            <div class="col-1 d-flex justify-content-center my-1 mx-sm-0 mx-2">
-                                                <input type="checkbox" class="btn-check smallCheckbox seatCheckbox"
-                                                    id="btncheck{{ $row }}{{ $col }}" autocomplete="off"
-                                                    name="seats[]" value="{{ $seatNumber }}"
-                                                    {{ $disabled ? 'disabled' : '' }}>
-                                                <label class="btn {{ $disabled ? 'btn-secondary' : 'btn-primary' }}"
-                                                    for="btncheck{{ $row }}{{ $col }}">
-                                                    {{ $seatNumber }}
-                                                </label>
-                                            </div>
-                                        @endfor
+                                                @endphp
+                                                <div class="col-1 my-1 mx-sm-1 mx-2">
+                                                    <input type="checkbox" class="btn-check smallCheckbox seatCheckbox"
+                                                        id="btncheck{{ $row }}{{ $col }}"
+                                                        autocomplete="off" name="seats[]" value="{{ $seatNumber }}"
+                                                        {{ $disabled ? 'disabled' : '' }}>
+                                                    <label class="btn {{ $disabled ? 'btn-secondary' : 'btn-primary' }}"
+                                                        for="btncheck{{ $row }}{{ $col }}">
+                                                        {{ $seatNumber }}
+                                                    </label>
+                                                </div>
+                                            @endfor
+                                        </div>
                                     @endfor
                                 </div>
 
