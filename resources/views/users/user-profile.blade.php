@@ -54,6 +54,8 @@
                                     </p>
                                     <p>Top Up Amount : <span
                                             class="badge bg-primary">{{ $topUpBalanceHistory->amount }}</span></p>
+                                    <p>Notes : <span
+                                            class="badge bg-primary">{{ $topUpBalanceHistory->notes == null ? 'tidak ada catatan ' : $topUpBalanceHistory->notes }}</span></p>
                                 </div>
                         </div>
                         <a href="{{ route('balance.index-history', auth()->user()->username) }}"

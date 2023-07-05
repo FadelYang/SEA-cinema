@@ -20,9 +20,24 @@
             </div>
         </div>
     </div>
-    
+
     <section class="container">
         <a href="{{ route('user.profile', auth()->user()->username) }}" class="btn btn-secondary">Kembali</a>
-        <a href="#" class="btn btn-danger">Cancel Ticket</a>
+        <a href="#" class="btn btn-danger" id="ticketCancelButton">Cancel Ticket</a>
     </section>
 @endsection
+
+
+@push('js')
+    <script>
+        $(document).ready(function() {
+            $('#ticketCancelButton').on('click', function() {
+                confirm(
+                    'Apakah kamu yakin ingin membatalkan pembelian tiket?'
+                );
+
+                return;
+            })
+        })
+    </script>
+@endpush
