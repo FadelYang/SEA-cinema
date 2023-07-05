@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('movie_title');
             $table->string('movie_age_rating');
             $table->string('seat_number');
+            $table->integer('ticket_price');
             $table->integer('status');
             $table->timestamps();
 

@@ -86,6 +86,7 @@ class TicketController extends Controller
                     'xid' => $clientNanoId->generateId($size = 10),
                     'movie_title' => $request->movie_title,
                     'movie_age_rating' => $request->movie_age_rating,
+                    'ticket_price' => $request->ticket_price,
                     'seat_number' => $seatNumber,
                     'status' => TicketStatusEnum::SUCCESS,
                 ]);
@@ -98,6 +99,14 @@ class TicketController extends Controller
         } catch (\Throwable $th) {
             return Redirect::back()->with('message', "Ada kesalahan, pastika anda sudah memilih tempat duduk dengan benar $th");
         }
+    }
+
+    public function getTicketDetail($user = null, $ticketXId)
+    {
+        $user = auth()->user()->id;
+        $ticketItem = TicketTransactionModel::where('xid', $ticketXId)->first();
+
+        return view('tickets.detail-ticket', ['user' => $user, 'ticketItem' => $ticketItem]);
     }
 
     public function getIndexTicketTransactionHistoryPage()

@@ -21,6 +21,7 @@ class TicketTransactionModel extends Model
         'movie_title',
         'movie_age_rating',
         'seat_number',
+        'ticket_price',
         'status',
     ];
 
