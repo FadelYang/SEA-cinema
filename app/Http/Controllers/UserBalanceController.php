@@ -39,12 +39,12 @@ class UserBalanceController extends MovieController
         return Redirect()->back()->with('success', "Berhasil topup sebanyak $request->balance. Balance anda sekarang $updateBalance");
     }
 
-    public function storeTopUpBalanceHistory($userId, $topUpAmount)
+    public function storeTopUpBalanceHistory($userId, $topUpAmount, $topUpNotes = "Top Up Balance")
     {
         TopUpBalanceHistoryModel::create([
             'user_id' => $userId,
             'amount' => $topUpAmount,
-            'notes' => "Top Up Balance",
+            'notes' => $topUpNotes,
         ]);
     }
 
