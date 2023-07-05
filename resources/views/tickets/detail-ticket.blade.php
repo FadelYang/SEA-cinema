@@ -15,7 +15,7 @@
                     <p>Seat Number : <span class="badge bg-primary">{{ $ticketItem->seat_number }}</span></p>
                     <p>Ticket Price : <span class="badge bg-primary">{{ $ticketItem->ticket_price }}</span></p>
                     <p>Status : <span
-                            class="badge {{ $ticketItem->status === '1' ? 'bg-success' : 'bg-danger' }}">{{ $ticketItem->status === '1' ? 'Success' : 'Canceled' }}</span>
+                            class="badge {{ $ticketItem->status === App\Enum\TicketStatusEnum::SUCCESS ? 'bg-success' : 'bg-danger' }}">{{ $ticketItem->status === App\Enum\TicketStatusEnum::SUCCESS ? 'Success' : 'Canceled' }}</span>
                     </p>
                 </div>
             </div>

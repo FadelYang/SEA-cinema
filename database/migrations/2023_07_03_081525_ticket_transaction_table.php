@@ -1,10 +1,8 @@
 <?php
 
-use App\Enum\TicketStatusEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Validation\Rule;
 
 return new class extends Migration
 {
@@ -22,8 +20,8 @@ return new class extends Migration
             $table->string('movie_title');
             $table->string('movie_age_rating');
             $table->string('seat_number');
-            $table->enum('status', [TicketStatusEnum::SUCCESS->value, TicketStatusEnum::CANCELED->value])->default(TicketStatusEnum::SUCCESS->value);
             $table->integer('ticket_price');
+            $table->integer('status');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
