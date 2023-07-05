@@ -21,7 +21,7 @@
                                 <p>Status : <span
                                         class="badge {{ $item->status === 1 ? 'bg-success' : 'bg-danger' }}">{{ $item->status === 1 ? 'Success' : 'Canceled' }}</span>
                                 </p>
-                                <a href="#" class="btn btn-primary">Get Detail</a>
+                                <a href="{{ route('tickets.detail', [auth()->user()->username, ]) }}" class="btn btn-primary">Get Detail</a>
                             </div>
                         </div>
                     </div>

@@ -36,6 +36,8 @@ Route::post('/movie/{title}', [TicketController::class, 'BuyTicket'])
     ->name('ticket.buy')->middleware('auth');
 Route::get('/user/{username}/index-ticket-transaction-history', [TicketController::class, 'getIndexTicketTransactionHistoryPage'])
     ->name('tickets.index-history')->middleware('auth');
+Route::get('/user/{username}/detail-ticket/{ticketXId}', [TicketController::class, 'getTicketDetail'])
+    ->name('tickets.detail')->middleware('auth');
 
 // user
 Route::get('/user/{username}', [UserController::class, 'getUserProfilePage'])

@@ -34,7 +34,7 @@
                                             class="badge bg-primary">{{ $ticketTransactionHistory->movie_title }}</span></p>
                                     <p>Seat Number : <span
                                             class="badge bg-primary">{{ $ticketTransactionHistory->seat_number }}</span></p>
-                                    <a href="#" class="btn btn-primary">Get Detail</a>
+                                <a href="{{ route('tickets.detail', [auth()->user()->username, $ticketTransactionHistory->xid]) }}" class="btn btn-primary">Get Detail</a>
                                 </div>
                         </div>
                         <a href="{{ route('tickets.index-history', auth()->user()->username) }}" class="btn btn-warning">See
