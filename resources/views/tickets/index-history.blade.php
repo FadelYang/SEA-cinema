@@ -19,7 +19,7 @@
                                 <p>Film Title : <span class="badge bg-primary">{{ $item->movie_title }}</span></p>
                                 <p>Seat Number : <span class="badge bg-primary">{{ $item->seat_number }}</span></p>
                                 <p>Status : <span
-                                        class="badge {{ $item->status === '1' ? 'bg-success' : 'bg-danger' }}">{{ $item->status === '1' ? 'Success' : 'Canceled' }}</span>
+                                        class="badge {{ $item->status === '1' ? 'bg-success' : 'bg-danger' }}">{{ $item->status === App\Enum\TicketStatusEnum::SUCCESS ? 'Success' : 'Canceled' }}</span>
                                 </p>
                                 <a href="{{ route('tickets.detail', [auth()->user()->username, $item->xid]) }}" class="btn btn-primary">Get Detail</a>
                             </div>
