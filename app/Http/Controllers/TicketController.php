@@ -28,6 +28,7 @@ class TicketController extends Controller
         $userBookedSeats = count(TicketTransactionModel::where([
             ['user_id', $user->id],
             ['movie_title', $movieTitle],
+            ['status', TicketStatusEnum::SUCCESS->value],
         ])->get());
 
         // check are user can watch the movie depend their age
@@ -42,7 +43,7 @@ class TicketController extends Controller
         return view('tickets.buy-ticket', [
             'movie' => $movieItem,
             'bookedSeats' => $bookedSeats,
-        ])->with('totalTicketMessage', "You alerady have $userBookedSeats tickets for this movie, the maximum is 6");
+        ])->with('totalTicketMessage', "You already have $userBookedSeats tickets for this movie, the maximum is 6");
     }
 
     public function buyTicket(Request $request)
@@ -97,7 +98,8 @@ class TicketController extends Controller
 
             return Redirect::back()->with('success', "Berhasil membeli tiket");
         } catch (\Throwable $th) {
-            return Redirect::back()->with('message', "Ada kesalahan, pastika anda sudah memilih tempat duduk dengan benar $th");
+            dd($th);
+            return Redirect::back()->with('message', "Ada kesalahan, pastika anda sudah memilih tempat duduk dengan benar");
         }
     }
 
@@ -128,10 +130,8 @@ class TicketController extends Controller
                 ['xid', $ticketXId],
             ])->first();
 
-            dd($ticketItem->status == TicketStatusEnum::CANCELED);
-
-            if ($ticketItem->status === TicketStatusEnum::CANCELED) {
-                return Redirect()->back()->with('error', 'Tiket anda sudah dibatalkan');
+            if ($ticketItem->status === TicketStatusEnum::CANCELED->value) {
+                return Redirect()->back()->with('message', 'Tiket anda sudah dibatalkan');
             }
 
             $ticketItem->update(['status' => TicketStatusEnum::CANCELED]);
