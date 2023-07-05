@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mt-5 pt-5">
+    <div class="container mt-5">
         <div class="row">
             <div class="col-xl-4">
                 <div class="card" style="width: 18rem;">
@@ -21,9 +21,27 @@
                 <div class="row">
                     <div>
                         <p class="h1">Ticket Transaction History</p>
-                        <p class="alert alert-info p-5 text-center ">There will appears transaction history here</p>
+                        <p>Latest transaction</p>
+                        <div class="alert alert-info">
+                            @if (is_null($ticketTransactionHistory))
+                                <div class="text-center">Belum ada history transaksi</div>
+                            @else
+                                <div>
+                                    <p>Date : <span
+                                            class="badge bg-primary">{{ date('d F Y - h:m:s', strtotime($ticketTransactionHistory->created_at)) }}</span>
+                                    </p>
+                                    <p>Film Title : <span
+                                            class="badge bg-primary">{{ $ticketTransactionHistory->movie_title }}</span></p>
+                                    <p>Seat Number : <span
+                                            class="badge bg-primary">{{ $ticketTransactionHistory->seat_number }}</span></p>
+                                    <a href="#" class="btn btn-primary">Get Detail</a>
+                                </div>
+                        </div>
+                        <a href="{{ route('balance.index-history', auth()->user()->username) }}" class="btn btn-warning">See
+                            All Transaction</a>
+                        @endif
                     </div>
-                    <div class="mt-xl-5 mt-2">
+                    <div class="mt-xl-4 mt-2">
                         <p class="h1">Top Up Balance History</p>
                         <p>Latest transaction</p>
                         <div class="alert alert-info">
@@ -38,7 +56,8 @@
                                             class="badge bg-primary">{{ $topUpBalanceHistory->amount }}</span></p>
                                 </div>
                         </div>
-                        <a href="{{ route('balance.index-history', auth()->user()->username) }}" class="btn btn-warning">See All Transaction</a>
+                        <a href="{{ route('balance.index-history', auth()->user()->username) }}"
+                            class="btn btn-warning">See All Transaction</a>
                         @endif
 
                     </div>

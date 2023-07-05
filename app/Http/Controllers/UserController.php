@@ -13,11 +13,13 @@ class UserController extends Controller
 
         // get latest top up balance history
         $userLatestTopUpBalanceHistory = (new UserBalanceController)->getLatestTopUpBalanceHistory($user->id);
+        $userLatestTicketTransactionHistory = (new TicketController)->getLatestTicketTransaction($user->id);
 
         return view('users.user-profile', [
             'user' => $user,
             'userBirthDay' => $userBirthday,
             'topUpBalanceHistory' => $userLatestTopUpBalanceHistory,
+            'ticketTransactionHistory' => $userLatestTicketTransactionHistory,
         ]);
     }
 }
