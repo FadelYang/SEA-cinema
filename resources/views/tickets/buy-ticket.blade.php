@@ -195,11 +195,17 @@
 
             // check before buy ticket
             $('#buyTicketButton').on('click', function() {
-                confirm(
+                statusConfirmation = confirm(
                     'Apakah kamu yakin?\n\nPastikan kamu sudah memilih tiket dan tempat duduk yang benar dan sesuai keinginan'
                 );
 
-                return;
+                if (statusConfirmation) {
+                    return alert('Tiket anda sedang diproses')
+                } else {
+                    return statusConfirmation
+                }
+
+                return
             })
         });
     </script>
