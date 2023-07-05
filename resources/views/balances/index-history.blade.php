@@ -17,6 +17,8 @@
                                         class="badge bg-primary">{{ date('d F Y - h:m:s', strtotime($item->created_at)) }}</span>
                                 </p>
                                 <p>Top Up Amount : <span class="badge bg-primary">{{ $item->amount }}</span></p>
+                                <p>Notes : <span
+                                            class="badge bg-primary">{{ $item->notes == null ? 'tidak ada catatan ' : $item->notes }}</span></p>
                             </div>
                         </div>
                     </div>
