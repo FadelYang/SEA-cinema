@@ -2,31 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\HomeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
 class HomeController extends MovieController
 {
-    /**
-     * Show the application home page.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
+    private $homeService;
+
+    public function __construct(HomeService $homeService)
+    {
+        $this->homeService = $homeService;
+    }
+
     public function index(Request $request)
     {
-        $movies = $this->getMovieList(inRandomOrder: false, isPaginate: true);
-        $query = $request->get('query');
-
-        if (sizeOf($request->all()) > 0 && $query !== null) {
-            $movies = $movies->filter(function ($movie) use ($query) {
-                return stripos($movie->title, $query) !== false;
-            })->paginate(10);
-        }
-
-        return view('home', [
-            'movies' => $movies,
-            'showPagination' => is_null(request('all'))
-        ]);
-
+        return $this->homeService->getHomePage($request);
     }
 }
