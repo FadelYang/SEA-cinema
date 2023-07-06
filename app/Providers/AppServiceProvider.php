@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Repositories\EloquentTicketTransactionRepository;
+use App\Repositories\EloquentTopUpBalanceRepository;
+use App\Repositories\EloquentUserRepository;
+use App\Services\UserService;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -15,7 +19,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(UserService::class, function ($app) {
+            return new UserService(
+                $app->make(EloquentUserRepository::class),
+                $app->make(EloquentTicketTransactionRepository::class),
+                $app->make(EloquentTopUpBalanceRepository::class),
+            );
+        });
     }
 
     /**

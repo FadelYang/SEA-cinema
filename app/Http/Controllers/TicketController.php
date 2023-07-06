@@ -98,7 +98,6 @@ class TicketController extends Controller
 
             return Redirect::back()->with('success', "Berhasil membeli tiket");
         } catch (\Throwable $th) {
-            dd($th);
             return Redirect::back()->with('message', "Ada kesalahan, pastika anda sudah memilih tempat duduk dengan benar");
         }
     }
