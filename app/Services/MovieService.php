@@ -16,16 +16,13 @@ class MovieService
     public function getmovieDetailPage($movieTitle)
     {
         $movieItem = $this->eloquentMovieRepository->getMovieDetail($movieTitle);
-        $movies = $this->eloquentMovieRepository->getMovieList(
-            inRandomOrder: true,
-            isPaginate: false,
-            excludeTitle: $movieTitle
-        );
+        
+        return $movieItem;
+    }
 
-        return view('movies.movie-detail', [
-            'movieDetail' => $movieItem,
-            'movies' => $movies,
-        ]);
-
+    public function getMovieList($inRandomOrder, $isPaginate, $excludeTitle)
+    {
+        return $this->eloquentMovieRepository
+            ->getMovieList($inRandomOrder, $isPaginate, $excludeTitle);
     }
 }
