@@ -18,9 +18,6 @@ class HomeService extends MovieService
             })->paginate(10);
         }
 
-        return view('home', [
-            'movies' => $movies,
-            'showPagination' => is_null(request('all'))
-        ]);
+        return $movies;
     }
 }

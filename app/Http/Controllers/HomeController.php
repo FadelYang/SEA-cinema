@@ -17,6 +17,11 @@ class HomeController extends MovieController
 
     public function index(Request $request)
     {
-        return $this->homeService->getHomePage($request);
+        $movies = $this->homeService->getHomePage($request);
+
+        return view('home', [
+            'movies' => $movies,
+            'showPagination' => is_null(request('all'))
+        ]);
     }
 }
