@@ -2,24 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
+use App\Services\UserService;
 
 class UserController extends Controller
 {
+    private $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     public function getUserProfilePage()
     {
-        $user = auth()->user();
-        $userBirthday = date('d F Y', strtotime($user->birthday));
-
-        // get latest top up balance history
-        $userLatestTopUpBalanceHistory = (new UserBalanceController)->getLatestTopUpBalanceHistory($user->id);
-        $userLatestTicketTransactionHistory = (new TicketController)->getLatestTicketTransaction($user->id);
-
-        return view('users.user-profile', [
-            'user' => $user,
-            'userBirthDay' => $userBirthday,
-            'topUpBalanceHistory' => $userLatestTopUpBalanceHistory,
-            'ticketTransactionHistory' => $userLatestTicketTransactionHistory,
-        ]);
+        return $this->userService->getUserProfilePage();
     }
 }
