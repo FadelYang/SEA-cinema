@@ -35,19 +35,25 @@ class ticketTransactionService
         $userBookedSeats = $this->eloquentTicketTransactionRepository
             ->getBookedSeatsByUser($movieTitle, $user->id);
 
+        return [
+            'movieItem' => $movieItem,
+            'userAge' => $userAge,
+            'bookedSeats' => $bookedSeats,
+            'userBookedSeats' => $userBookedSeats,
+        ];
+    }
+
+    public function checkIsUserAgeUnderMovieRating($movieItem, $userAge)
+    {
         foreach ($movieItem as $movie) {
             $movieAgeRating = $movie->age_rating;
         };
 
         if ($userAge <= $movieAgeRating) {
-            return Redirect::back()->with('message', 'Umur anda tidak mencukupi untuk film yang anda pilih');
+            return true;
         }
 
-        return [
-            'movieItem' => $movieItem,
-            'bookedSeats' => $bookedSeats,
-            'userBookedSeats' => $userBookedSeats,
-        ];
+        return false;
     }
 
     public function buyTicket($request)
@@ -66,7 +72,7 @@ class ticketTransactionService
         if ($selectedSeats === null) {
             return Redirect::back()->with('message', 'Silahkan pilih tempat duduk terlebih dahulu');
         }
-        
+
         $totalPrice = $request->ticket_price * count($selectedSeats);
         $userBalance = $user->balance !== null ? $user->balance : '0';
 
