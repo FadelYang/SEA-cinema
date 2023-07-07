@@ -25,12 +25,18 @@ class TicketController extends Controller
 
     public function getBuyTicketPage($movieTitle)
     {
-        $getBuyTicketData =  $this->ticketTransactionService->getBuyTicketPage($movieTitle);
+        $buyTicketData =  $this->ticketTransactionService->getBuyTicketPage($movieTitle);
 
-        return view('tickets.buy-ticket', [
-            'movie' => $getBuyTicketData['movieItem'],
-            'bookedSeats' => $getBuyTicketData['bookedSeats'],
-        ])->with('totalTicketMessage', "You already have " . $getBuyTicketData['userBookedSeats'] . " tickets for this movie, the maximum is 6");
+        $isUserAgeUnderMovieRating = $this->ticketTransactionService->checkIsUserAgeUnderMovieRating(
+                $buyTicketData['movieItem'],
+                $buyTicketData['userAge']
+            );
+
+        if ($isUserAgeUnderMovieRating) {
+            return Redirect::back()->with('message', 'Umur anda tidak mencukupi untuk film yang anda pilih');
+        }
+
+        $this->renderTicketPage($buyTicketData);
     }
 
     public function buyTicket(Request $request)
@@ -141,13 +147,12 @@ class TicketController extends Controller
 
     }
 
-    public function getLatestTicketTransaction($userId)
+    private function renderTicketPage($buyTicketData)
     {
-        return TicketTransactionModel::where('user_id', $userId)->orderBy('created_at', 'desc')->first();
+        return view('tickets.buy-ticket', [
+            'movie' => $buyTicketData['movieItem'],
+            'bookedSeats' => $buyTicketData['bookedSeats'],
+        ])->with('totalTicketMessage', "You already have " . $buyTicketData['userBookedSeats'] . " tickets for this movie, the maximum is 6");
     }
 
-    public function getAllTicketTransaction($userId)
-    {
-        return TicketTransactionModel::where('user_id', $userId)->orderBy('created_at', 'desc')->paginate(9);
-    }
 }
