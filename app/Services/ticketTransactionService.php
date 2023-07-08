@@ -43,7 +43,7 @@ class ticketTransactionService
         ];
     }
 
-    public function checkIsUserAgeUnderMovieRating($movieItem, $userAge)
+    public function isUserAgeUnderMovieRating($movieItem, $userAge)
     {
         foreach ($movieItem as $movie) {
             $movieAgeRating = $movie->age_rating;
@@ -65,21 +65,37 @@ class ticketTransactionService
         $userTicketPerFilm = $this->eloquentTicketTransactionRepository
             ->getUserTotalTicketPerFilm($request->movie_title);
 
-        if (($userTicketPerFilm + count($selectedSeats)) > 6) {
-            return Redirect::back()->with('message', "Anda sudah mencapai batas jumlah tiket yang dapat dibeli");
+        if (!$this->areUserSelectedSeats($request)) {
+            return [
+                'selectedSeats' => $selectedSeats
+            ];
         }
 
-        if ($selectedSeats === null) {
-            return Redirect::back()->with('message', 'Silahkan pilih tempat duduk terlebih dahulu');
-        }
+        $totalUserTicketPerFilm = $userTicketPerFilm + count($selectedSeats);
 
         $totalPrice = $request->ticket_price * count($selectedSeats);
         $userBalance = $user->balance !== null ? $user->balance : '0';
 
-        if ($userBalance < $totalPrice) {
-            return Redirect::back()->with('message', "Total balance anda tidak mencukupi untuk membeli tiket (total harga tiket: $totalPrice, balance anda: $userBalance)");
+        return [
+            "selectedSeats" => $selectedSeats,
+            "totalUserTicketPerFilm" => $totalUserTicketPerFilm,
+            "userBalance" => $userBalance,
+            "totalTicketPrice" => $totalPrice
+            
+        ];
+    }
+
+    public function areUserSelectedSeats($request)
+    {
+        if ($request->input('seats') === null) {
+            return false;
         }
 
+        return true;
+    }
+
+    public function storeBuyTicketData($selectedSeats, $request, $totalPrice)
+    {
         foreach ($selectedSeats as $seatNumber) {
             $this->eloquentTicketTransactionRepository
                 ->storeBuyTicketData($request, $seatNumber);

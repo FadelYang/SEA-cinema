@@ -27,7 +27,7 @@ class TicketController extends Controller
     {
         $buyTicketData =  $this->ticketTransactionService->getBuyTicketPage($movieTitle);
 
-        $isUserAgeUnderMovieRating = $this->ticketTransactionService->checkIsUserAgeUnderMovieRating(
+        $isUserAgeUnderMovieRating = $this->ticketTransactionService->isUserAgeUnderMovieRating(
                 $buyTicketData['movieItem'],
                 $buyTicketData['userAge']
             );
@@ -36,7 +36,10 @@ class TicketController extends Controller
             return Redirect::back()->with('message', 'Umur anda tidak mencukupi untuk film yang anda pilih');
         }
 
-        $this->renderTicketPage($buyTicketData);
+        return view('tickets.buy-ticket', [
+            'movie' => $buyTicketData['movieItem'],
+            'bookedSeats' => $buyTicketData['bookedSeats'],
+        ])->with('totalTicketMessage', "You already have " . $buyTicketData['userBookedSeats'] . " tickets for this movie, the maximum is 6");
     }
 
     public function buyTicket(Request $request)
@@ -49,48 +52,29 @@ class TicketController extends Controller
                 'status' => ['in:SUCCESS, FAILED'],
             ]);
 
-            $selectedSeats = $request->input('seats'); // get all selected seats
+            $buyTicket = $this->ticketTransactionService->buyTicket($request);
 
-            $userTicketPerFilm = TicketTransactionModel::where([
-                ['status', TicketStatusEnum::SUCCESS],
-                ['movie_title', $request->movie_title],
-                ['user_id', auth()->user()->id]
-            ])->get();
-
-            if ((count($userTicketPerFilm) + count($selectedSeats)) > 6) {
+            if ($buyTicket['selectedSeats'] === null) {
+                return Redirect::back()->with('message', 'Silahkan pilih tempat duduk terlebih dahulu');
+            }
+            
+            if ($buyTicket['totalUserTicketPerFilm'] > 6) {
                 return Redirect::back()->with('message', "Anda sudah mencapai batas jumlah tiket yang dapat dibeli");
             }
 
-            if ($selectedSeats === null) {
-                return Redirect::back()->with('message', 'Silahkan pilih tempat duduk terlebih dahulu');
-            }
-
-            $totalPrice = $request->ticket_price * count($selectedSeats);
-            $userBalance = auth()->user()->balance !== null ? auth()->user()->balance : 0;
-
-            if ($userBalance < $totalPrice) {
+            if ($buyTicket['userBalance'] < $buyTicket['totalTicketPrice']) {
                 return Redirect::back()->with('message', "Total balance anda tidak mencukupi untuk membeli tiket (total harga tiket: $totalPrice, balance anda: $userBalance)");
             }
 
-            $clientNanoId = new Client();
-
-            foreach ($selectedSeats as $seatNumber) {
-                TicketTransactionModel::create([
-                    'user_id' => auth()->user()->id,
-                    'xid' => $clientNanoId->generateId($size = 10),
-                    'movie_title' => $request->movie_title,
-                    'movie_age_rating' => $request->movie_age_rating,
-                    'ticket_price' => $request->ticket_price,
-                    'seat_number' => $seatNumber,
-                    'status' => TicketStatusEnum::SUCCESS,
-                ]);
-
-                User::where('id', auth()->user()->id)
-                    ->update(['balance' => (auth()->user()->balance - $totalPrice)]);
-            }
+            $this->ticketTransactionService->storeBuyTicketData(
+                selectedSeats: $buyTicket['selectedSeats'],
+                request: $request,
+                totalPrice: $buyTicket['totalTicketPrice']
+            );
 
             return Redirect::back()->with('success', "Berhasil membeli tiket");
         } catch (\Throwable $th) {
+            dd($th);
             return Redirect::back()->with('message', "Ada kesalahan, pastika anda sudah memilih tempat duduk dengan benar");
         }
     }
@@ -146,13 +130,4 @@ class TicketController extends Controller
       
 
     }
-
-    private function renderTicketPage($buyTicketData)
-    {
-        return view('tickets.buy-ticket', [
-            'movie' => $buyTicketData['movieItem'],
-            'bookedSeats' => $buyTicketData['bookedSeats'],
-        ])->with('totalTicketMessage', "You already have " . $buyTicketData['userBookedSeats'] . " tickets for this movie, the maximum is 6");
-    }
-
 }
