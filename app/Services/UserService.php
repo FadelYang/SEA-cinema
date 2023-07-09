@@ -24,7 +24,7 @@ class UserService
 
     public function getUserProfilePage()
     {
-        $user = $this->eloquentUserRepository->getLoginUser();
+        $user = $this->getLoginUser();
 
         $userLatestTopUpBalanceHistory = $this->eloquentTopUpBalanceRepository
             ->getLatestTopUpBalanceHistory($user->id);
@@ -38,5 +38,10 @@ class UserService
             'topUpBalanceHistory' => $userLatestTopUpBalanceHistory,
             'ticketTransactionHistory' => $userLatestTicketTransactionHistory,
         ]);
+    }
+
+    public function getLoginUser()
+    {
+        return $this->eloquentUserRepository->getLoginUser();
     }
 }
