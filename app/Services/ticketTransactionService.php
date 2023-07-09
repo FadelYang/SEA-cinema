@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repositories\EloquentMovieRepository;
 use App\Repositories\EloquentTicketTransactionRepository;
+use App\Repositories\EloquentTopUpBalanceRepository;
 use App\Repositories\EloquentUserRepository;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Redirect;
@@ -13,15 +14,18 @@ class ticketTransactionService
     private $eloquentTicketTransactionRepository;
     private $eloquentUserRepository;
     private $eloquentMovieRepository;
+    private $eloquentTopUpBalanceRepository;
 
     public function __construct(
         EloquentTicketTransactionRepository $eloquentTicketTransactionRepository,
         EloquentUserRepository $eloquentUserRepository,
-        EloquentMovieRepository $eloquentMovieRepository
+        EloquentMovieRepository $eloquentMovieRepository,
+        EloquentTopUpBalanceRepository $eloquentTopUpBalanceRepository
     ) {
         $this->eloquentTicketTransactionRepository = $eloquentTicketTransactionRepository;
         $this->eloquentUserRepository = $eloquentUserRepository;
         $this->eloquentMovieRepository = $eloquentMovieRepository;
+        $this->eloquentTopUpBalanceRepository = $eloquentTopUpBalanceRepository;
     }
 
     public function getBuyTicketPage($movieTitle)
@@ -134,5 +138,11 @@ class ticketTransactionService
 
         $this->eloquentUserRepository
             ->updateBalanceUserAfterCancelTicket(user: $user, refundPrice: $ticketPrice);
+        
+        $this->eloquentTopUpBalanceRepository->storeTopUpBalanceHistory(
+            userId: $user->id,
+            topUpAmount: $ticketPrice,
+            topUpNotes: "Refund Cancel Ticket"
+        );
     }
 }
