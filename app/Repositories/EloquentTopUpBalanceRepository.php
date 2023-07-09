@@ -19,4 +19,13 @@ class EloquentTopUpBalanceRepository
             ->orderBy('created_at', 'desc')
             ->first();
     }
+
+    public function storeTopUpBalanceHistory($userId, $topUpAmount, $topUpNotes)
+    {
+        TopUpBalanceHistoryModel::create([
+            'user_id' => $userId,
+            'amount' => $topUpAmount,
+            'notes' => $topUpNotes,
+        ]);
+    }
 }
