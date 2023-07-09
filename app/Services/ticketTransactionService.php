@@ -80,7 +80,8 @@ class ticketTransactionService
             "selectedSeats" => $selectedSeats,
             "totalUserTicketPerFilm" => $totalUserTicketPerFilm,
             "userBalance" => $userBalance,
-            "totalTicketPrice" => $totalPrice
+            "totalTicketPrice" => $totalPrice,
+            "user" => $user,
             
         ];
     }
@@ -103,5 +104,35 @@ class ticketTransactionService
             // update user balance after success buying ticket
             $this->eloquentUserRepository->updateBalanceUserAfterBuyTicket($totalPrice);
         }
+    }
+
+    public function getTicketDetail($ticketXId)
+    {
+        $user = $this->eloquentUserRepository->getLoginUser();
+        $ticketItem = $this->eloquentTicketTransactionRepository
+            ->getTicketDetail($ticketXId);
+
+        return [
+            'user' => $user,
+            'ticketItem' => $ticketItem,
+        ];
+    }
+
+    public function getAllTicketTransaction($user)
+    {
+        $ticketData = $this->eloquentTicketTransactionRepository->getAllTicketTransaction($user);
+
+        return [
+            'ticketData' => $ticketData
+        ];
+    }
+
+    public function cancelBuyTicket($user, $ticketXId, $ticketPrice)
+    {
+        $this->eloquentTicketTransactionRepository
+            ->cancelBuyTicket(ticketXId: $ticketXId);
+
+        $this->eloquentUserRepository
+            ->updateBalanceUserAfterCancelTicket(user: $user, refundPrice: $ticketPrice);
     }
 }
