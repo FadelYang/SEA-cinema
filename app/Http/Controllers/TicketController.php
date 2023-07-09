@@ -124,7 +124,6 @@ class TicketController extends Controller
 
             return Redirect()->back()->with('success', 'Berhasil membatalkan tiket, saldo anda sudah diupdate sesuai jumlah tiket yang direfund');
         } catch (\Throwable $th) {
-            dd($th);
             return Redirect()->back()->with('message', 'Gagal membatalkan tiket, silahkan coba lagi');
         }
     }
