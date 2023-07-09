@@ -18,4 +18,9 @@ class EloquentUserRepository
         User::where('id', $user->id)
             ->update(['balance' => ($user->balance - $totalPrice)]);
     }
+
+    public function updateBalanceUserAfterCancelTicket($user, $refundPrice)
+    {
+        $user->update(['balance' => $user->balance + $refundPrice]);
+    }
 }
