@@ -14,7 +14,7 @@ this web app is build with
 ## Getting Started
 
 make sure u have
-* laravel 8 or above (this is minimum requirement for Laravel 9)
+* php 8 or above (this is minimum requirement for Laravel 9)
 * Composer
 * git
 * mysql & apache (or simply just use XAMPP)
