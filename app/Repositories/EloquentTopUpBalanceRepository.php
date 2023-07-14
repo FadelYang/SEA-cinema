@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\TopUpBalanceHistoryModel;
+use App\Models\User;
 
 class EloquentTopUpBalanceRepository
 {
@@ -20,10 +21,16 @@ class EloquentTopUpBalanceRepository
             ->first();
     }
 
-    public function storeTopUpBalanceHistory($userId, $topUpAmount, $topUpNotes)
+    public function topUpBalance($user, $updateBalance)
+    {
+        // update balance value after topup
+        User::where('id', $user->id)->update(['balance' => $updateBalance]);
+    }
+
+    public function storeTopUpBalanceHistory($user, $topUpAmount, $topUpNotes)
     {
         TopUpBalanceHistoryModel::create([
-            'user_id' => $userId,
+            'user_id' => $user->id,
             'amount' => $topUpAmount,
             'notes' => $topUpNotes,
         ]);

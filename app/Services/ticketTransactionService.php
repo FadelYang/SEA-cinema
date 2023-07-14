@@ -140,7 +140,7 @@ class ticketTransactionService
             ->updateBalanceUserAfterCancelTicket(user: $user, refundPrice: $ticketPrice);
         
         $this->eloquentTopUpBalanceRepository->storeTopUpBalanceHistory(
-            userId: $user->id,
+            user: $user,
             topUpAmount: $ticketPrice,
             topUpNotes: "Refund Cancel Ticket"
         );
