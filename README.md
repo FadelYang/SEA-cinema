@@ -1,67 +1,47 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+![image](https://github.com/FadelYang/SEA-cinema/assets/75234524/f593d44a-3378-4639-a41f-b8c4e6ff1cd3)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Laravel Compfest Movie App
+## A Web App About Movie Ticketing
 
-## About Laravel
+This my submission for Compfest 15 Software Engineering Academy, this website is build with Laravel 9 and Bootstrap 5. you can login, top up some balance, and buy movies ticket with thats balances. make sure you have enough balance before buy the ticket. or you can just top up the balance as much as you want.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+this web app is build with
+* laravel 9
+* Bootstrap 5
+* Mysql
+* Apache
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Getting Started
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+make sure u have
+* laravel 8 or above (this is minimum requirement for Laravel 9)
+* Composer
+* git
+* mysql & apache (or simply just use XAMPP)
+* npm 7.*
 
-## Learning Laravel
+## How To Install
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. clone this repository with 'git clone'
+2. run 'composer install'
+3. copy .env.example, paste it, and rename it with .env
+4. run 'php artisan key:generate'
+5. configure your .env file, change the database name by your new database
+6. run 'php artisan migrate'
+7. run 'npm install && npm run dev'
+ 
+## Example How To Use It (The App)
+* this is the home page, as an ordinary user, you can only see the list of movie and the detail movie
+![image](https://github.com/FadelYang/SEA-cinema/assets/75234524/5d695f9f-9445-4778-bf3e-c7d68a860f04)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+* you can create an account by click register menu and fill the information needed
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+* after create an account, you can try buy a ticketm or top up first in menu in top right corner, after top up or buy ticket, you can see your transaction history in your user profile menu
+![image](https://github.com/FadelYang/SEA-cinema/assets/75234524/f9952033-ef6e-48e8-9e9b-0c26b8748812)
 
-## Laravel Sponsors
+* you also can cancel the ticket if you not want watch it, you will 100% refund
+![image](https://github.com/FadelYang/SEA-cinema/assets/75234524/211468a1-c983-499a-8514-cef542a71b2c)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## How To Contribute
 
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# SEA-cinema
+this app is are already using service repository patter as the main architectur, you can look closely thats aare Service, Repository, and Controller folder in app module. ther than that it's the same as how to use laravel by default.
