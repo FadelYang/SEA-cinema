@@ -22,13 +22,13 @@ make sure u have
 
 ## How To Install
 
-1. clone this repository with 'git clone'
-2. run 'composer install'
+1. clone this repository with `git clone`
+2. run `composer install`
 3. copy .env.example, paste it, and rename it with .env
-4. run 'php artisan key:generate'
+4. run `php artisan key:generate`
 5. configure your .env file, change the database name by your new database
-6. run 'php artisan migrate'
-7. run 'npm install && npm run dev'
+6. run `php artisan migrate`
+7. run `npm install && npm run dev`
  
 ## Example How To Use It (The App)
 * this is the home page, as an ordinary user, you can only see the list of movie and the detail movie
