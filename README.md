@@ -1,12 +1,6 @@
 ![image](https://github.com/FadelYang/SEA-cinema/assets/75234524/f593d44a-3378-4639-a41f-b8c4e6ff1cd3)	# Penjuang Event (evenin)
 
-![Alt text](image.png)
-# Laravel Compfest Movie App	## Tentang Pejuang Event
-## A Web App About Movie Ticketing	Pejuang
-
-
-This my submission for Compfest 15 Software Engineering Academy, this website is build with Laravel 9 and Bootstrap 5. you can login, top up some balance, and buy movies ticket with thats balances. make sure you have enough balance before buy the ticket. or you can just top up the balance as much as you want.	Pejuang Event dibangun dengan
-
+This my submission for Compfest 15 Software Engineering Academy, this website is build with Laravel 9 and Bootstrap 5. you can login, top up some balance, and buy movies ticket with thats balances. make sure you have enough balance before buy the ticket. or you can just top up the balance as much as you want.
 
 - PHP 8.2.4
 ## How To Install	- MySQL
